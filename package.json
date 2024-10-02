@@ -1,0 +1,11 @@
+{
+  "name": "exercicio",
+  "version": "1.0.0",
+  "description": "Utilizar o conceito de pageObject e AppAplications",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Felipe Barreto",
+  "license": "ISC"
+}
