@@ -1,3 +1,4 @@
+import { setCookieVersion } from '../support/pages/versaoEbac.page';
 const { gerarNome, gerarEmail, gerarTelefone, gerarUltimoNome, gerarPassword } = require('../support/geradorUsers');
 const { cadastroPage } = require('../support/pages/cadastro.page');
 const cadastrarUser = require("../support/pages/cadastroUser.page");
@@ -11,8 +12,8 @@ var nome = gerarNome();
 describe('Suite 01: Realizar cadastro com sucesso', () => {
   
   beforeEach(()=>{
-    cy.setCookie('ebacStoreVersion', 'v2', {domain: 'lojaebac.ebaconline.art.br'});
-    cy.visit('/')
+    setCookieVersion();
+    cy.visit('/');
   });
   
   it('deve realizar cadastro com sucesso', () => {

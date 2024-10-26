@@ -20,10 +20,15 @@ const gerarPassword = () => {
     return faker.internet.password();
 }
 
+const gerarEndereco = () => {
+    return faker.address();
+}
+
 module.exports = {
     gerarNome,
     gerarUltimoNome,
     gerarEmail,
     gerarTelefone,
-    gerarPassword
+    gerarPassword,
+    gerarEndereco
 };
