@@ -3,7 +3,10 @@ import { loginPage } from "./pages/login.page";
 import { compras } from "./pages/compras.page";
 import { homePage } from "./pages/cadastro.page"
 import { checkout } from "./pages/checkout.page";
-const { usuario, senha } = require ("./../fixtures/usuariosCadastrados.json")
+import { logarV2 } from "./pages V2/logar.page";
+import { addProductV2 } from "./pages V2/addProduct.page";
+import { addItem1 } from "./pages V2/addItemCarrinho.page"
+const { usuario, senha, usuarioV2, senhaV2 } = require ("./../fixtures/usuariosCadastrados.json")
 const faker = require('faker');
 
 
@@ -17,6 +20,29 @@ const faker = require('faker');
 
     cy.get(loginPage.botaoLogin).should('be.visible').click();
  })
+
+ Cypress.Commands.add('logarV2', () => { 
+   
+   setCookieVersion();
+   cy.visit("/");
+   cy.get(logarV2.signin).click();
+   cy.get(logarV2.campoEmail).type(usuarioV2);
+   cy.get(logarV2.campoSenha).type(senhaV2);
+   cy.get(logarV2.botaoLogin).click();
+
+})
+
+Cypress.Commands.add('addProductV2', ()=> {
+   cy.get(addProductV2.search).click();
+   cy.get(addProductV2.add1).click();
+})
+
+Cypress.Commands.add('addItemCarrinho', (categoria, item1) => {
+   cy.get(addItem1.categoria).eq(categoria).click({ force: true });
+   cy.get(addItem1.item).eq(item1).click()
+   cy.get(addItem1.addToCart).click()
+
+})
 
  Cypress.Commands.add('escolherItem', () => {
     cy.get(compras.paginaDoProduto).should('be.visible').click();

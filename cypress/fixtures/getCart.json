@@ -1,0 +1,22 @@
+{
+    "success": true,
+    "categories": [
+        {
+            "_id": "6790174fd151afe7bad3fc36",
+            "name": "Bags",
+            "photo": "https://www.zipmaster.com/wpcontent/uploads/2022/04/Reusable-Cloth-Shopping-Bags-RainbowPack-200-Case-Reusable-Bags-B26-061-3-1000x1000.jpg.webp",
+            "createdAt": "2025-01-21T21:53:19.315Z",
+            "updatedAt": "2025-01-21T21:53:19.315Z",
+            "__v": 0
+        },
+        {
+            "_id": "6790163e52f9b1cffcfcde4d",
+            "name": "Bag",
+            "photo": "gag.jpeg",
+            "createdAt": "2025-01-21T21:48:46.097Z",
+            "updatedAt": "2025-01-21T21:48:46.097Z",
+            "__v": 0
+        }
+    ],
+    "totalCategory": 2
+}
