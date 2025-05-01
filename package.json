@@ -4,7 +4,7 @@
   "description": "Utilizar o conceito de pageObject e AppAplication",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm cypress run"
   },
   "author": "Felipe Barreto",
   "license": "ISC",
