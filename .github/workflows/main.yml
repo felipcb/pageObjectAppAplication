@@ -1,4 +1,4 @@
-name: EBAC CI
+ouname: EBAC CI
 
 on:
   # dispara em push e pull_request na branch main
@@ -36,7 +36,7 @@ jobs:
       - name: Wait for server to be ready
         uses: iFaxity/wait-on-action@v1.2.1
         with:
-          url: http://localhost:3000
+          resource: http://localhost:3000
           timeout: 6000
 
       # 5) executa seus testes
