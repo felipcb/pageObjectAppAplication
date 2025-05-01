@@ -23,7 +23,7 @@
     "faker": "^5.5.3"
   },
   "devDependencies": {
-    "http-server": "^0.14.0",
+    "http-server": "^0.14.1",
     "start-server-and-test": "^1.14.0"
   }
 }
