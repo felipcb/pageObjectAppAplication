@@ -17,7 +17,10 @@ jobs:
     steps:
       # 1) confere o código
       - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3.9.1
+        with:
+          node-version: '22'
 
       # 2) instala dependências
       - name: Install dependencies
