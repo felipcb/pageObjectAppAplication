@@ -1,0 +1,49 @@
+name: EBAC CI
+
+on:
+  # dispara em push e pull_request na branch main
+  push:
+    branches:
+      - main
+      
+  # permite execução manual
+  workflow_dispatch:
+
+jobs:
+  build:
+    # sistema operacional da runner
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) confere o código
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 2) instala dependências
+      - name: Install dependencies
+        run: npm ci
+
+      # 3) inicia seu servidor (se houver)
+      - name: Start server
+        run: npm run start &
+
+      # 4) espera a aplicação ficar disponível
+      - name: Wait for server to be ready
+        uses: jasonellemons/wait-on-action@v1
+        with:
+          url: http://localhost:3000
+          timeout: 60
+
+      # 5) executa seus testes
+      - name: Run Cypress tests
+        run: npm run test:e2e
+
+      # 6) só para exemplo — rodando um script simples
+      - name: Echo Hello
+        run: echo "Hello, world!"
+
+      # 7) exemplo de multi-line
+      - name: Echo multi-line
+        run: |
+          echo "Aqui você pode adicionar"
+          echo "outros comandos de build/deploy"
