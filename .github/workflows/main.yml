@@ -1,4 +1,4 @@
-ouname: EBAC CI
+name: EBAC CI
 
 on:
   # dispara em push e pull_request na branch main
