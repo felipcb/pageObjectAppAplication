@@ -4,16 +4,16 @@
   "description": "Utilizar o conceito de pageObject e AppApplication",
   "main": "index.js",
   "scripts": {
-    // 1) Levanta um servidor estático
+    
     "start": "npx http-server ./cypress/downloads -p 3000",
 
-    // 2) Roda os testes headless (CI)
+    
     "test:e2e": "cypress run",
 
-    // 3) Abre o Cypress em modo interativo (opcional)
+    
     "test": "cypress open",
 
-    // 4) CI end-to-end: start → espera localhost:3000 → test:e2e
+    
     "ci": "start-server-and-test start http://localhost:3000 test:e2e"
   },
   "author": "Felipe Barreto",
