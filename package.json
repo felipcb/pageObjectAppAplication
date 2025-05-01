@@ -1,15 +1,30 @@
 {
   "name": "exercicio",
   "version": "1.0.0",
-  "description": "Utilizar o conceito de pageObject e AppAplication",
+  "description": "Utilizar o conceito de pageObject e AppApplication",
   "main": "index.js",
   "scripts": {
-    "test": "npm cypress run"
+    // 1) Levanta um servidor estático
+    "start": "npx http-server ./cypress/downloads -p 3000",
+
+    // 2) Roda os testes headless (CI)
+    "test:e2e": "cypress run",
+
+    // 3) Abre o Cypress em modo interativo (opcional)
+    "test": "cypress open",
+
+    // 4) CI end-to-end: start → espera localhost:3000 → test:e2e
+    "ci": "start-server-and-test start http://localhost:3000 test:e2e"
   },
   "author": "Felipe Barreto",
   "license": "ISC",
   "dependencies": {
     "cypress": "^13.15.0",
     "faker": "^5.5.3"
+  },
+  "devDependencies": {
+    "http-server": "^0.14.0",
+    "start-server-and-test": "^1.14.0"
   }
 }
+
