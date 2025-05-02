@@ -1,54 +1,28 @@
 name: EBAC CI
 
 on:
-  # dispara em push e pull_request na branch main
   push:
-    branches:
-      - main
-      
-  # permite execução manual
-  workflow_dispatch:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
 
 jobs:
   build:
-    # sistema operacional da runner
+
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-      # 1) confere o código
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3.9.1
-        with:
-          node-version: '22'
-
-      # 2) instala dependências
-      - name: Install dependencies
-        run: npm ci
-
-      # 3) inicia seu servidor (se houver)
-      - name: Start server
-        run: npm run start &
-
-      # 4) espera a aplicação ficar disponível
-      - name: Wait for server to be ready
-        uses: iFaxity/wait-on-action@v1.2.1
-        with:
-          resource: http://localhost:3000
-          timeout: 6000
-
-      # 5) executa seus testes
-      - name: Run Cypress tests
-        run: npm run test:e2e
-
-      # 6) só para exemplo — rodando um script simples
-      - name: Echo Hello
-        run: echo "Hello, world!"
-
-      # 7) exemplo de multi-line
-      - name: Echo multi-line
-        run: |
-          echo "Aqui você pode adicionar"
-          echo "outros comandos de build/deploy"
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
