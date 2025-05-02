@@ -20,6 +20,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: List workspace
+        run: ls -R .
 
       # 2) Seta o Node.js e cacheia o npm
       - name: Use Node.js ${{ matrix.node-version }}
