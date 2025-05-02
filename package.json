@@ -4,17 +4,9 @@
   "description": "Utilizar o conceito de pageObject e AppApplication",
   "main": "index.js",
   "scripts": {
-    
-    "start": "npx http-server ./cypress/downloads -p 3000",
-
-    
-    "test:e2e": "cypress run",
-
-    
-    "test": "cypress open",
-
-    
-    "ci": "start-server-and-test start http://localhost:3000 test:e2e"
+    "start": "npx http-server ./cypress/downloads -p 3000",    
+    "test:e2e": "cypress run",    
+    "test": "cypress open"
   },
   "author": "Felipe Barreto",
   "license": "ISC",
