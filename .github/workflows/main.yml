@@ -2,27 +2,44 @@ name: EBAC CI
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ main ]          # troque para o nome da sua branch principal
   pull_request:
-    branches: [ $default-branch ]
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [18.x,20.x,22.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      # 1) Puxa o código
+      - uses: actions/checkout@v4
+
+      # 2) Seta o Node.js e cacheia o npm
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      # 3) Instala as deps exatas do package-lock.json
+      - name: Install dependencies
+        run: npm ci
+
+      # 4) Sobe seu servidor estático ou backend
+      - name: Start server
+        run: npm run start &
+
+      # 5) Aguarda o servidor ficar disponível na porta 3000
+      - name: Wait for server to be ready
+        uses: iFaxity/wait-on-action@v1.2.1
+        with:
+          resource: http://localhost:3000
+          timeout: 60000
+
+      # 6) Roda o Cypress headless
+      - name: Run Cypress e2e tests
+        run: npm run test:e2e
