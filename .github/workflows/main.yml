@@ -18,6 +18,8 @@ jobs:
     steps:
       # 1) Puxa o código
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # 2) Seta o Node.js e cacheia o npm
       - name: Use Node.js ${{ matrix.node-version }}
