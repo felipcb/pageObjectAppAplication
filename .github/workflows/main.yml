@@ -20,11 +20,11 @@ jobs:
           node-version: 22.x
           cache: npm
 
-    name: Install dependencies
-    run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
       # 3) Roda o Cypress headless
-    -name: Run Cypress e2e tests
-    run: npx cypress run
-    env:
-      CYPRESS_BaseUrl: https://lojajabac.ebaconline.art.br
+      - name: Run Cypress e2e tests
+        run: npx cypress run
+        env:
+          CYPRESS_BaseUrl: https://lojajabac.ebaconline.art.br
