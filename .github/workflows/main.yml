@@ -2,52 +2,29 @@ name: EBAC CI
 
 on:
   push:
-    branches: [ main ]          # troque para o nome da sua branch principal
-  pull_request:
     branches: [ main ]
+  pull_request:
+
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [22.x]
-      
-
+  cypress-e2e:
+    runs-on: ubuntu-latest      
     steps:
       # 1) Puxa o código
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: List workspace
-        run: ls -R .
 
       # 2) Seta o Node.js e cacheia o npm
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 22.x
           cache: npm
 
+    name: Install dependencies
+    run: npm ci
 
-      # 3) Instala as deps exatas do package-lock.json
-      - name: Install dependencies
-        run: npm ci
-        env:
-          NODE_OPTIONS: "--dns-result-order=ipv4first"
-
-      # 4) Sobe seu servidor estático ou backend
-      - name: Start server
-        run: npm run start &
-
-      # 5) Aguarda o servidor ficar disponível na porta 3000
-      - name: Wait for server to be ready
-        uses: iFaxity/wait-on-action@v1.2.1
-        with:
-          resource: http://localhost:3000
-          timeout: 60000
-
-      # 6) Roda o Cypress headless
-      - name: Run Cypress e2e tests
-        run: npm run test:e2e
+      # 3) Roda o Cypress headless
+    -name: Run Cypress e2e tests
+    run: npx cypress run
+    env:
+      CYPRESS_BaseUrl: https://lojajabac.ebaconline.art.br
